@@ -21,7 +21,7 @@ public class ConnectionController {
     
     private static HttpURLConnection httpConn;
     
-    public static void sendGetRequest(String requestURL) throws IOException {
+    public static String sendGetRequest(String requestURL) throws IOException {
         
         // Establishes connection
         URL url = new URL(requestURL);
@@ -44,7 +44,7 @@ public class ConnectionController {
         in.close();
 
         // Displays response
-	System.out.println(response.toString());
+	return response.toString();
         
     }
     

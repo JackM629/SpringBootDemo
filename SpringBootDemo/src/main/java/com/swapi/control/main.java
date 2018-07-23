@@ -22,6 +22,28 @@ public class main {
     
     public static void main(String[] args) {
         
+        String database = getDatabaseInput();
+        String resourceNum = getResourceNumInput();
+        String output = sendGetRequest(database, resourceNum);
+        
+        System.out.println("Retrieved data: " + output);
+        
+    }
+    
+    public static String sendGetRequest(String database, String resourceNum) {
+        // Requests data row from swapi.co
+        String output = "";
+        System.out.println("Sending GET request to https://swapi.co/api/" + database + "/" + resourceNum + "/");
+        try {
+            output = ConnectionController.sendGetRequest("https://swapi.co/api/" + database + "/" + resourceNum + "/");
+        }
+        catch (IOException e) {
+            System.out.println("Data not found");
+        }
+        return output;
+    }
+    
+    public static String getDatabaseInput() {
         // Variable declarations
         boolean databaseValid = false;
         Scanner scan = new Scanner(System.in);
@@ -39,19 +61,16 @@ public class main {
             }
         }
         
+        return database;
+        
+    }
+    
+    public static String getResourceNumInput() {
         // Gets user input for database resource number
+        Scanner scan = new Scanner(System.in);
         System.out.println("Enter resource number");
         String resourceNum = scan.next();
-        
-        // Requests data row from swapi.co
-        System.out.println("Sending GET request to https://swapi.co/api/" + database + "/" + resourceNum + "/");
-        try {
-            ConnectionController.sendGetRequest("https://swapi.co/api/" + database + "/" + resourceNum + "/");
-        }
-        catch (IOException e) {
-            System.out.println("Data not found");
-        }
-        
+        return resourceNum;
     }
     
 }
